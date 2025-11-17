@@ -1,104 +1,226 @@
-/* CSS Variables for Theme Management */
+/* Ocean Professional Theme Variables */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --primary: #2563EB;       /* Blue */
+  --secondary: #F59E0B;     /* Amber */
+  --background: #f9fafb;    /* Light gray */
+  --surface: #ffffff;       /* White cards */
+  --text: #111827;          /* Slate-900 */
+  --muted: #6b7280;         /* Slate-500 */
+  --error: #EF4444;
+
+  --radius: 14px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 6px 16px rgba(0,0,0,0.08);
+  --shadow-lg: 0 20px 30px rgba(0,0,0,0.12);
+  --ring: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+* { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
 }
 
+body {
+  margin: 0;
+  background: linear-gradient(180deg, rgba(37,99,235,0.06), rgba(249,250,251,0)) no-repeat,
+              var(--background);
+  color: var(--text);
+}
+
+/* App container */
 .App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  display: grid;
+  place-items: center;
+  padding: 24px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Card wrapper */
+.game-card {
+  width: 100%;
+  max-width: 520px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  padding: 24px;
+  border: 1px solid rgba(17,24,39,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
-}
-
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
-}
-
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.theme-toggle:hover {
+.game-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+  box-shadow: 0 24px 36px rgba(0,0,0,0.12);
 }
 
-.theme-toggle:active {
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(37,99,235,0.15), rgba(245,158,11,0.15));
+  display: grid;
+  place-items: center;
+  color: var(--primary);
+  font-weight: 800;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(37,99,235,0.2);
+}
+
+.title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Status bar */
+.status {
+  margin: 8px 0 18px;
+  background: linear-gradient(180deg, rgba(37,99,235,0.06), rgba(37,99,235,0));
+  border: 1px solid rgba(37,99,235,0.2);
+  padding: 12px 14px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.badge {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.turn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--secondary);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25);
+}
+
+/* Board */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  width: 100%;
+  margin: 0 auto 20px;
+}
+
+.cell {
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(180deg, #ffffff, #f7fafc);
+  border: 1px solid rgba(17,24,39,0.06);
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--text);
+  transition: transform 0.12s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  box-shadow: var(--shadow-sm);
+  user-select: none;
+}
+
+.cell:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(37,99,235,0.3);
+}
+
+.cell:active {
   transform: translateY(0);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.cell.disabled {
+  cursor: not-allowed;
+  opacity: 0.85;
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
+.cell.X { color: var(--primary); }
+.cell.O { color: var(--secondary); }
+
+/* Winning highlight */
+.cell.win {
+  background: linear-gradient(180deg, rgba(37,99,235,0.08), rgba(245,158,11,0.08));
+  border-color: rgba(37,99,235,0.45);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+}
+
+/* Footer actions */
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.reset-btn {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.12s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.reset-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+  opacity: 0.95;
+}
+
+.reset-btn:active {
+  transform: translateY(0);
+}
+
+.note {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 560px) {
+  .game-card {
+    padding: 18px;
+  }
+  .cell {
+    font-size: 36px;
+    border-radius: 14px;
   }
 }
